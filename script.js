@@ -2,7 +2,12 @@
 
 
 
-const topics = ["topic1", "topic2"]
+const topics = ["camping", "sailing", "A bird in hand is worth 2 in the bush", "A chain is only as strong as the weakest link",
+"A picture is worth a thousand words", "Don't look a gift horse in the mouth", "Shutting the stable door after the horse has bolted",
+"Grinning like a Cheshire cat", "Mad dogs and Englishmen", "Mightier than the sword", "A Cup of Tea", "Devil's advocate", "Pot calling the kettle black",
+"Every cloud has a silver lining", "Take with a grain of salt", "One small step for man,", "Apple of my eye", "The best laid plans of mice and men",
+"The sky's the limit", "When there's a R in the month", "Wouldn't touch with a barge pole", "To vanish into thin air", "When pig's fly",
+"Magic Thinking"]
 
 
 
@@ -14,10 +19,10 @@ time = timerStart;
 
 isTiming = false;
 
-player1Key = "z";
+player1Key = "a";
 player2Key = "x";
-player3Key = "c";
-player4Key = "v";
+player3Key = ",";
+player4Key = "'";
 
 scores = [0, 0, 0, 0]
 
@@ -38,7 +43,7 @@ document.addEventListener('keydown', function(event) {
     letter = event.key
     console.log(event.key)
     
-    if (letter == "z")
+    if (letter == player1Key)
     {
         currentPlayer = 0
         buzzerPressed();
