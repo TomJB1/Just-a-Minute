@@ -1,3 +1,11 @@
+
+
+
+
+const topics = ["topic1", "topic2"]
+
+
+
 playerNumber = 4;
 
 timerStart = 60;
@@ -14,6 +22,17 @@ player4Key = "v";
 scores = [0, 0, 0, 0]
 
 currentPlayer = 1
+
+
+
+function getRandomTopic()
+{
+    const random = Math.floor(Math.random() * topics.length);
+    topic = topics[random]
+    return topic
+}
+
+
 
 document.addEventListener('keydown', function(event) {
     letter = event.key
@@ -51,16 +70,22 @@ function buzzerPressed()
     if( isTiming == true )
     {
         isTiming = false;
+        document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " buzzes";
 
     }
-    else if( isTiming == false && time == 0)
+    else if( isTiming == false && time == 60 || time == 0)
     {
         time = 60
         startTimer()
+        newTopic = getRandomTopic()
+        document.getElementById("topic").innerHTML = newTopic;
+        document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " begins the topic";
+
     }
     else if ( isTiming == false && time > 0)
     {
         startTimer()
+        document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the challenge";
     }
 }
 
@@ -68,7 +93,7 @@ function buzzerPressed()
 function startTimer()
 {
     isTiming = true;
-    document.getElementById("currentPlayer").innerHTML = (currentPlayer + 1);
+    document.getElementById("currentPlayer").innerHTML = "Player " + (currentPlayer + 1);
 }
 
 function timeUp()
@@ -77,6 +102,7 @@ function timeUp()
     scores[currentPlayer] = scores[currentPlayer] + 1
     scoreID = "p" + currentPlayer +"Score"
     document.getElementById(scoreID).innerHTML = scores[currentPlayer];
+    document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the point";
 
 }
 
