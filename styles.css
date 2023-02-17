@@ -39,7 +39,7 @@ div div#time
 
 #playArea
 {
-    flex-grow: 1;
+    flex-grow: 13;
     display: flex;
     flex-direction: column;
     background-color: rgb(49, 49, 180);
@@ -69,5 +69,39 @@ div#topic
 #scores
 {
     width: 20%;
+    flex-grow: 1;
     background-color: cyan;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#scores div
+{
+    display: flex;
+    padding-left: 1vw;
+}
+
+#scores div div
+{
+    padding-top: 0.5vw;
+}
+
+#scores div input
+{
+    background-color: transparent;
+    font-size: 3vw;
+    width: 12vw;
+    border: 0px;
+    text-align: right;
+}
+
+#scores div input.score
+{
+    background-color: transparent;
+    font-size: 4vw;
+    width: 4.5vw;
+    border: 0px;
+    text-align: left;
+    padding-left: 1vw;
 }

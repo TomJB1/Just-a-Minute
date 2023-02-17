@@ -6,15 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Just a Minute</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="script.js"></script>
+    
 </head>
 <body>
+    
+    <audio  id="buzzer">
+        <source src="./buzz.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio  id="instructions">
+        <source src="./instructions.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="main">
         <div id="scores">
-            <div>Player 1:</div><div id="p0Score">0</div>
-            <div>Player 2:</div><div id="p1Score">0</div>
-            <div>Player 3:</div><div id="p2Score">0</div>
-            <div>Player 4:</div><div id="p3Score">0</div>
+            <div>
+                <input value="Player 1"></input><div>:</div><input class="score" id="p0Score" value="0"></input>
+            </div>
+            <div>
+                <input value="Player 2"></input><div>:</div><input class="score" id="p1Score" value="0"></input>
+            </div>
+            <div>
+                <input value="Player 3"></input><div>:</div><input class="score" id="p2Score" value="0"></input>
+            </div>
+            <div>
+                <input value="Player 4"></input><div>:</div><input class="score" id="p3Score" value="0"></input>
+            </div>
+            
         </div>
         <div id="playArea">
             <div id="topicC">
@@ -31,5 +49,6 @@
         
     </div>
     <div id="message">press buzzer to start</div>
+    <script src="script.js"></script>
 </body>
 </html>

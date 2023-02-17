@@ -29,6 +29,14 @@ scores = [0, 0, 0, 0]
 currentPlayer = 1
 
 
+var lastBuzzed = new Date().getTime();
+
+var buzzer = document.getElementById("buzzer")
+
+var instructions = document.getElementById("instructions")
+
+const bodyObject = document.body
+
 
 function getRandomTopic()
 {
@@ -42,55 +50,87 @@ function getRandomTopic()
 document.addEventListener('keydown', function(event) {
     letter = event.key
     console.log(event.key)
+
     
-    if (letter == player1Key)
+    if ( document.activeElement === bodyObject)
     {
-        currentPlayer = 0
-        buzzerPressed();
+        
+    
+        
+        if (letter == player1Key)
+        {
+            currentPlayer = 0
+            buzzerPressed();
 
-    }else if (letter == player2Key)
-    {
-        currentPlayer = 1
-        buzzerPressed();
+        }else if (letter == player2Key)
+        {
+            currentPlayer = 1
+            buzzerPressed();
 
-    }else if (letter == player3Key)
-    {
-        currentPlayer = 2
-        buzzerPressed();
+        }else if (letter == player3Key)
+        {
+            currentPlayer = 2
+            buzzerPressed();
 
-    }else if (letter == player4Key)
+        }else if (letter == player4Key)
+        {
+            currentPlayer = 3
+            buzzerPressed();
+        }
+
+    }else
     {
-        currentPlayer = 3
-        buzzerPressed();
+        console.log("action " + letter + " block due to typing")
     }
 
-    });
+});
+
+    
 
 function buzzerPressed()
 {
     
-    
-   
-    
-    if( isTiming == true )
-    {
-        isTiming = false;
-        document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " buzzes";
 
-    }
-    else if( isTiming == false && time == 60 || time == 0)
-    {
-        time = 60
-        startTimer()
-        newTopic = getRandomTopic()
-        document.getElementById("topic").innerHTML = newTopic;
-        document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " begins the topic";
+    if(new Date().getTime() > lastBuzzed + 2500) {
 
-    }
-    else if ( isTiming == false && time > 0)
+        lastBuzzed = new Date().getTime();
+        
+        console.log("buzz upheld from " + letter)
+
+        if( isTiming == true )
+        {
+            isTiming = false;
+            document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " buzzes";
+            buzzer.play()
+
+        }
+        else if( isTiming == false && time == 60 || time == 0)
+        {
+            time = 60
+            instructions.play()
+            newTopic = getRandomTopic()
+            document.getElementById("topic").innerHTML = newTopic;
+            document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " begins the topic";
+
+            instructions.onended = function() {
+                startTimer()
+            };
+            
+
+        }
+        else if ( isTiming == false && time > 0)
+        {
+            instructions.play()
+            document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the challenge";
+
+            instructions.onended = function() {
+                startTimer()
+            };
+            
+        }
+    }else
     {
-        startTimer()
-        document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the challenge";
+        console.log("Buzz stopped from " + letter)
     }
 }
 
@@ -104,9 +144,11 @@ function startTimer()
 function timeUp()
 {
     console.log("Time up");
-    scores[currentPlayer] = scores[currentPlayer] + 1
     scoreID = "p" + currentPlayer +"Score"
-    document.getElementById(scoreID).innerHTML = scores[currentPlayer];
+    scores[currentPlayer] = Number(document.getElementById(scoreID).value)
+
+    scores[currentPlayer] = scores[currentPlayer] + 1
+    document.getElementById(scoreID).value = scores[currentPlayer];
     document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the point";
 
 }
