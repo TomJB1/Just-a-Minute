@@ -24,6 +24,8 @@ player2Key = "x";
 player3Key = ",";
 player4Key = "'";
 
+names = ["Player 1", "Player 2", "Player 3", "Player 4"]
+
 scores = [0, 0, 0, 0]
 
 currentPlayer = 1
@@ -34,6 +36,8 @@ var lastBuzzed = new Date().getTime();
 var buzzer = document.getElementById("buzzer")
 
 var instructions = document.getElementById("instructions")
+
+var whistle = document.getElementById("whistle")
 
 const bodyObject = document.body
 
@@ -46,6 +50,15 @@ function getRandomTopic()
 }
 
 
+function updateName()
+{
+    for (let number = 0; number < names.length; number++) {
+        nameboxid = "name" + (number + 1);
+        console.log(nameboxid)
+        names[number] = document.getElementById(nameboxid).value;
+    }
+    
+}
 
 document.addEventListener('keydown', function(event) {
     letter = event.key
@@ -97,20 +110,30 @@ function buzzerPressed()
         
         console.log("buzz upheld from " + letter)
 
-        if( isTiming == true )
+        if( isTiming == true ) //buzzing to give objection
         {
             isTiming = false;
-            document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " buzzes";
+
+            updateName()
+            document.getElementById("message").innerHTML = names[currentPlayer] + " buzzes";
+
             buzzer.play()
 
         }
-        else if( isTiming == false && time == 60 || time == 0)
+        else if( isTiming == false && time == 60 || time == 0) //starting a new round
         {
             time = 60
+
+            document.getElementById("isTalkingAbout").innerHTML = "is talking about"
+
+            updateName()
+            document.getElementById("currentPlayer").innerHTML = names[currentPlayer];
+
             instructions.play()
+            
             newTopic = getRandomTopic()
             document.getElementById("topic").innerHTML = newTopic;
-            document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " begins the topic";
+            document.getElementById("message").innerHTML = names[currentPlayer] + " begins the topic";
 
             instructions.onended = function() {
                 startTimer()
@@ -118,10 +141,12 @@ function buzzerPressed()
             
 
         }
-        else if ( isTiming == false && time > 0)
+        else if ( isTiming == false && time > 0) //continuing a round
         {
             instructions.play()
-            document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the challenge";
+
+            updateName()
+            document.getElementById("message").innerHTML = names[currentPlayer] + " wins the challenge";
 
             instructions.onended = function() {
                 startTimer()
@@ -138,18 +163,23 @@ function buzzerPressed()
 function startTimer()
 {
     isTiming = true;
-    document.getElementById("currentPlayer").innerHTML = "Player " + (currentPlayer + 1);
+
+    updateName()
+    document.getElementById("currentPlayer").innerHTML = names[currentPlayer];
 }
 
 function timeUp()
 {
     console.log("Time up");
+    whistle.play()
     scoreID = "p" + currentPlayer +"Score"
     scores[currentPlayer] = Number(document.getElementById(scoreID).value)
 
     scores[currentPlayer] = scores[currentPlayer] + 1
     document.getElementById(scoreID).value = scores[currentPlayer];
-    document.getElementById("message").innerHTML = "Player " + (currentPlayer + 1) + " wins the point";
+
+    updateName()
+    document.getElementById("message").innerHTML = names[currentPlayer] + " wins the point";
 
 }
 
