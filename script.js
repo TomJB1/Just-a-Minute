@@ -115,7 +115,7 @@ function buzzerPressed()
             isTiming = false;
 
             updateName()
-            document.getElementById("message").innerHTML = names[currentPlayer] + " buzzes";
+            document.getElementById("message").innerText = names[currentPlayer] + " buzzes";
 
             buzzer.play()
 
@@ -124,16 +124,16 @@ function buzzerPressed()
         {
             time = 60
 
-            document.getElementById("isTalkingAbout").innerHTML = "is talking about"
+            document.getElementById("isTalkingAbout").innerText = "is talking about"
 
             updateName()
-            document.getElementById("currentPlayer").innerHTML = names[currentPlayer];
+            document.getElementById("currentPlayer").innerText = names[currentPlayer];
 
             instructions.play()
             
             newTopic = getRandomTopic()
-            document.getElementById("topic").innerHTML = newTopic;
-            document.getElementById("message").innerHTML = names[currentPlayer] + " begins the topic";
+            document.getElementById("topic").innerText = newTopic;
+            document.getElementById("message").innerText = names[currentPlayer] + " begins the topic";
 
             instructions.onended = function() {
                 startTimer()
@@ -146,7 +146,7 @@ function buzzerPressed()
             instructions.play()
 
             updateName()
-            document.getElementById("message").innerHTML = names[currentPlayer] + " wins the challenge";
+            document.getElementById("message").innerText = names[currentPlayer] + " wins the challenge";
 
             instructions.onended = function() {
                 startTimer()
@@ -165,7 +165,7 @@ function startTimer()
     isTiming = true;
 
     updateName()
-    document.getElementById("currentPlayer").innerHTML = names[currentPlayer];
+    document.getElementById("currentPlayer").innerText = names[currentPlayer];
 }
 
 function timeUp()
@@ -179,7 +179,7 @@ function timeUp()
     document.getElementById(scoreID).value = scores[currentPlayer];
 
     updateName()
-    document.getElementById("message").innerHTML = names[currentPlayer] + " wins the point";
+    document.getElementById("message").innerText = names[currentPlayer] + " wins the point";
 
 }
 
@@ -189,7 +189,7 @@ function decreaseTimer()
     if ( time > 0 && isTiming == true)
     {
         time = time - 1
-        document.getElementById("time").innerHTML = time;
+        document.getElementById("time").innerText = time;
     } else if (isTiming == true)
     {
         timeUp()
