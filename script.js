@@ -1,4 +1,5 @@
-
+//Just A Minute local multiplayer game.
+//Copyright (C) 2023  Tom Brandis
 
 
 
