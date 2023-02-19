@@ -71,7 +71,26 @@
         
         
     </div>
-    <div id="message">press buzzer to start</div>
+
+    <div id="footer">
+
+        <div class="Button" id="rules" onclick="rulesClick()">Rules</div>
+        <div id="message">press buzzer to start</div>
+        <div class="Button" id="settings" onclick="settingsClick()">Settings</div>
+    </div>
+    <div class="" id="settingInside">
+        <div>
+            <div>Points for speaking at the end: </div><input class="score" id="pointPerWin" value="1"></input>
+        </div>
+        <div>
+            <div>Points for correct challenge: </div><input class="score" id="pointPerCorrectChallenge" value="0"></input>
+        </div>
+    </div>
+
+    <div class="" id="rulesInside">
+        <h1>Rules</h1>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

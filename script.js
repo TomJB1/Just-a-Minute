@@ -31,6 +31,10 @@ scores = [0, 0, 0, 0]
 
 currentPlayer = 1
 
+lastPlayer = 1
+
+objectingPlayer = 1
+
 
 var lastBuzzed = new Date().getTime();
 
@@ -42,6 +46,31 @@ var whistle = document.getElementById("whistle")
 
 const bodyObject = document.body
 
+var pointPerWin = 1;
+
+var pointPerCChallenge = 0;
+
+
+function settingsClick()
+{
+    console.log("settings updated")
+    var settings = document.getElementById("settingInside");
+    settings.classList.toggle("show");
+
+    pointPerWin = Number(document.getElementById("pointPerWin").value);
+
+    pointPerCChallenge = Number(document.getElementById("pointPerCorrectChallenge").value);
+
+    document.getElementById("rulesInside").classList.remove("show")
+}
+
+function rulesClick()
+{
+    var rules = document.getElementById("rulesInside");
+    rules.classList.toggle("show")
+
+    document.getElementById("settingInside").classList.remove("show")
+}
 
 function getRandomTopic()
 {
@@ -55,7 +84,6 @@ function updateName()
 {
     for (let number = 0; number < names.length; number++) {
         nameboxid = "name" + (number + 1);
-        console.log(nameboxid)
         names[number] = document.getElementById(nameboxid).value;
     }
     
@@ -99,7 +127,14 @@ document.addEventListener('keydown', function(event) {
 
 });
 
-    
+function givePoints(amount)
+{
+    scoreID = "p" + currentPlayer +"Score"
+    scores[currentPlayer] = Number(document.getElementById(scoreID).value)
+
+    scores[currentPlayer] = scores[currentPlayer] + amount
+    document.getElementById(scoreID).value = scores[currentPlayer];
+}
 
 function buzzerPressed()
 {
@@ -119,6 +154,9 @@ function buzzerPressed()
             document.getElementById("message").innerText = names[currentPlayer] + " buzzes";
 
             buzzer.play()
+
+            currentPlayer = objectingPlayer
+
 
         }
         else if( isTiming == false && time == 60 || time == 0) //starting a new round
@@ -140,7 +178,7 @@ function buzzerPressed()
                 startTimer()
             };
             
-
+            lastPlayer = currentPlayer
         }
         else if ( isTiming == false && time > 0) //continuing a round
         {
@@ -149,9 +187,18 @@ function buzzerPressed()
             updateName()
             document.getElementById("message").innerText = names[currentPlayer] + " wins the challenge";
 
+            console.log("last player: " + lastPlayer + " objecting player :" + objectingPlayer + " current player: " + currentPlayer)
+
+            if ( lastPlayer != currentPlayer && objectingPlayer == currentPlayer)
+            {
+                givePoints(pointPerCChallenge)
+                console.log("give points")
+            }
+
             instructions.onended = function() {
                 startTimer()
             };
+            
             
         }
     }else
@@ -173,11 +220,8 @@ function timeUp()
 {
     console.log("Time up");
     whistle.play()
-    scoreID = "p" + currentPlayer +"Score"
-    scores[currentPlayer] = Number(document.getElementById(scoreID).value)
-
-    scores[currentPlayer] = scores[currentPlayer] + 1
-    document.getElementById(scoreID).value = scores[currentPlayer];
+    
+    givePoints(pointPerWin)
 
     updateName()
     document.getElementById("message").innerText = names[currentPlayer] + " wins the point";
