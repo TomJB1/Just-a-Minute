@@ -19,6 +19,8 @@ timerStart = 60;
 time = timerStart;
 
 isTiming = false;
+inRound = false;
+instructionsPlaying = false;
 
 player1Key = "a";
 player2Key = "x";
@@ -36,7 +38,7 @@ lastPlayer = 1
 objectingPlayer = 1
 
 
-var lastBuzzed = new Date().getTime();
+var lastBuzzed = (new Date().getTime() - 2500);
 
 var buzzer = document.getElementById("buzzer")
 
@@ -50,7 +52,7 @@ var pointPerWin = 1;
 
 var pointPerCChallenge = 0;
 
-var inRound = false;
+
 
 
 function settingsClick()
@@ -142,7 +144,7 @@ function buzzerPressed()
 {
     
 
-    if(new Date().getTime() > lastBuzzed + 2500) {
+    if(new Date().getTime() > lastBuzzed + 2500 && instructionsPlaying == false) {
 
         lastBuzzed = new Date().getTime();
         
@@ -163,8 +165,7 @@ function buzzerPressed()
         }
         else if( inRound == false && time == 60 || time == 0) //starting a new round
         {
-            inRound = true
-
+            
             time = 60
 
             document.getElementById("isTalkingAbout").innerText = "is talking about"
@@ -172,6 +173,7 @@ function buzzerPressed()
             updateName()
             document.getElementById("currentPlayer").innerText = names[currentPlayer];
 
+            instructionsPlaying = true;
             instructions.play()
             
             newTopic = getRandomTopic()
@@ -180,6 +182,8 @@ function buzzerPressed()
 
             instructions.onended = function() {
                 startTimer()
+                inRound = true
+                instructionsPlaying = false;
             };
             
             lastPlayer = currentPlayer
