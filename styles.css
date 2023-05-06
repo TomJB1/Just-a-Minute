@@ -27,6 +27,7 @@ body
     justify-content: space-between;
     flex-direction: row;
     max-height: 90%;
+    max-width: 100vw;
     flex: 3;
 }
 
@@ -150,11 +151,22 @@ div#settingInside
     line-height: 8vh;
 }
 
-div#topic
+#topic
 {
     font-size: 7vw;
     color: wheat;
+    max-width: 70vw;
+    text-align: center;
+    overflow-wrap: break-word;
+    background-color: rgb(4, 4, 39);
+    border: none;
+    resize: none;
+    
 }
+
+  
+
+
 
 #scores
 {

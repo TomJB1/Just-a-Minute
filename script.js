@@ -177,7 +177,7 @@ function buzzerPressed()
             instructions.play()
             
             newTopic = getRandomTopic()
-            document.getElementById("topic").innerText = newTopic;
+            document.getElementById("topic").value = newTopic;
             document.getElementById("message").innerText = names[currentPlayer] + " begins the topic";
 
             instructions.onended = function() {
