@@ -50,6 +50,8 @@ var pointPerWin = 1;
 
 var pointPerCChallenge = 0;
 
+var inRound = false;
+
 
 function settingsClick()
 {
@@ -146,7 +148,7 @@ function buzzerPressed()
         
         console.log("buzz upheld from " + letter)
 
-        if( isTiming == true ) //buzzing to give objection
+        if( isTiming == true && inRound == true) //buzzing to give objection
         {
             isTiming = false;
 
@@ -159,8 +161,10 @@ function buzzerPressed()
 
 
         }
-        else if( isTiming == false && time == 60 || time == 0) //starting a new round
+        else if( inRound == false && time == 60 || time == 0) //starting a new round
         {
+            inRound = true
+
             time = 60
 
             document.getElementById("isTalkingAbout").innerText = "is talking about"
@@ -180,7 +184,7 @@ function buzzerPressed()
             
             lastPlayer = currentPlayer
         }
-        else if ( isTiming == false && time > 0) //continuing a round
+        else if ( inRound == true && isTiming == false && time > 0) //continuing a round
         {
             instructions.play()
 
@@ -225,6 +229,8 @@ function timeUp()
 
     updateName()
     document.getElementById("message").innerText = names[currentPlayer] + " wins the point";
+
+    inRound = false
 
 }
 
